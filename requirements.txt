@@ -1,0 +1,62 @@
+# Smart Email Guardian Dependencies
+# Core AI and ML libraries
+transformers>=4.21.0
+torch>=1.13.0
+scikit-learn>=1.1.0
+numpy>=1.21.0
+pandas>=1.5.0
+
+# Backend API framework
+fastapi>=0.88.0
+uvicorn[standard]>=0.20.0
+pydantic>=1.10.0
+python-multipart>=0.0.5
+
+# Security and authentication
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-dotenv>=0.19.0
+
+# Database (sqlite3 is built into Python - no need to install)
+# sqlalchemy>=1.4.0  # Optional for advanced DB features
+
+# HTTP client for testing
+httpx>=0.23.0
+requests>=2.28.0
+
+# CLI and utilities
+click>=8.0.0
+rich>=12.0.0  # For beautiful CLI output
+typer>=0.7.0  # Alternative CLI framework
+
+# Testing
+pytest>=7.0.0
+pytest-asyncio>=0.20.0
+pytest-cov>=4.0.0
+
+# Development tools (optional)
+black>=22.0.0  # Code formatting
+flake8>=5.0.0  # Linting
+mypy>=0.991   # Type checking
+
+# Text processing
+regex>=2022.10.31
+nltk>=3.7  # Optional for advanced text processing
+spacy>=3.4.0  # Optional for NLP features
+
+# Performance monitoring (optional)
+psutil>=5.8.0
+
+# Email parsing (optional)
+email-validator>=1.3.0
+
+# Async support (asyncio is built into Python 3.7+)
+aiofiles>=0.8.0
+
+# Production deployment
+gunicorn>=20.1.0  # WSGI server for production
+python-json-logger>=2.0.4  # Structured logging
+
+# Security scanning (development)
+bandit>=1.7.4  # Security linter
+safety>=2.2.0  # Dependency vulnerability scanner 

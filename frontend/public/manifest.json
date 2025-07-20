@@ -1,0 +1,18 @@
+{
+  "short_name": "Email Guardian",
+  "name": "Smart Email Guardian - AI-Powered Spam & Phishing Detection",
+  "description": "AI-powered email security toolkit for detecting spam and phishing attempts",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3b82f6",
+  "background_color": "#ffffff",
+  "categories": ["security", "productivity", "utilities"],
+  "lang": "en"
+} 
