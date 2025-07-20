@@ -8,75 +8,74 @@
     min-height: 100vh;
   }
 
-  /* Light mode background */
+  /* Clean background styles inspired by MailTester */
   body:not(.dark) {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    @apply bg-white;
   }
 
-  /* Dark mode background */
   body.dark {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    @apply bg-slate-50;
   }
 }
 
 @layer components {
-  /* Card styles */
+  /* Clean card styles inspired by MailTester */
   .card {
-    @apply rounded-xl shadow-lg border transition-all duration-200;
+    @apply rounded-xl shadow-sm border transition-all duration-200 bg-white;
   }
 
   .card:not(.dark) {
-    @apply bg-white border-gray-200;
+    @apply bg-white border-gray-200 shadow-gray-100/50;
   }
 
   .card.dark {
-    @apply bg-gray-900 border-gray-800;
+    @apply bg-slate-900 border-slate-700 shadow-slate-900/10;
   }
 
-  /* Button styles */
+  /* Professional button styles */
   .btn-primary {
-    @apply font-medium px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply font-semibold px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-primary:not(.dark) {
-    @apply bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white focus:ring-blue-500;
   }
 
   .btn-primary.dark {
-    @apply bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500;
+    @apply bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white focus:ring-blue-400;
   }
   
   .btn-secondary {
-    @apply font-medium px-6 py-3 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply font-medium px-4 py-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
   .btn-secondary:not(.dark) {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-800 focus:ring-gray-300;
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 focus:ring-gray-300;
   }
 
   .btn-secondary.dark {
-    @apply bg-gray-700 hover:bg-gray-600 text-gray-200 focus:ring-gray-500;
+    @apply bg-slate-700 hover:bg-slate-600 text-slate-200 focus:ring-slate-400;
   }
   
-  /* Input field styles */
+  /* Clean input field styles */
   .input-field {
     @apply w-full px-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-all duration-200 resize-none;
   }
 
   .input-field:not(.dark) {
-    @apply border-gray-300 focus:ring-primary-500;
+    @apply border-gray-300 bg-white focus:ring-blue-500 focus:border-blue-500;
   }
 
   .input-field.dark {
-    @apply border-gray-700 bg-gray-800 text-white focus:ring-blue-500;
+    @apply border-slate-600 bg-slate-800 text-white focus:ring-blue-400 focus:border-blue-400;
   }
 
-  /* Textarea styles */
+  /* Enhanced textarea styles */
   .textarea-dark {
-    @apply w-full px-4 py-3 border border-gray-700 bg-gray-800 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none;
+    @apply w-full px-4 py-3 border border-slate-600 bg-slate-800 text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-200 resize-none;
   }
 
-  /* Risk level styles */
+  /* Risk level styles with clean design */
   .risk-high:not(.dark) {
     @apply bg-red-50 border-red-200 text-red-800;
   }
@@ -103,7 +102,7 @@
 
   /* Feature card styles */
   .feature-card {
-    @apply p-6 rounded-xl border transition-all duration-200 hover:shadow-lg;
+    @apply p-6 rounded-xl border transition-all duration-200 hover:shadow-md;
   }
 
   .feature-card:not(.dark) {
@@ -111,49 +110,46 @@
   }
 
   .feature-card.dark {
-    @apply bg-gray-900 border-gray-800 hover:border-gray-700;
+    @apply bg-slate-900 border-slate-700 hover:border-slate-600;
   }
 
-  /* Header styles */
-  .header-light {
-    @apply bg-white/10 backdrop-blur-sm border-b border-white/20;
-  }
-
-  .header-dark {
-    @apply bg-gray-900/80 backdrop-blur-sm border-b border-gray-700;
-  }
-
-  /* Navigation styles */
-  .nav-light {
-    @apply bg-white/5 backdrop-blur-sm border-b border-white/10;
-  }
-
-  .nav-dark {
-    @apply bg-gray-800/50 backdrop-blur-sm border-b border-gray-700;
-  }
-
-  /* Footer styles */
-  .footer-light {
-    @apply bg-white/5 backdrop-blur-sm border-t border-white/10;
-  }
-
-  .footer-dark {
-    @apply bg-gray-800/50 backdrop-blur-sm border-t border-gray-700;
-  }
-
+  /* Animation utilities */
   .animate-scanner {
     animation: scanner 2s linear infinite;
   }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Professional hero section */
+  .hero-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #6366f1 100%);
+  }
+
+  .hero-gradient.dark {
+    background: linear-gradient(135deg, #1e3a8a 0%, #581c87 50%, #312e81 100%);
+  }
 }
 
+/* Keyframe animations */
 @keyframes scanner {
   0%, 100% { transform: translateX(-100%); opacity: 0; }
   50% { transform: translateX(0); opacity: 1; }
 }
 
-/* Loading spinner */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Clean loading spinner */
 .spinner {
-  border: 3px solid #f3f3f3;
+  border: 3px solid rgba(59, 130, 246, 0.1);
   border-top: 3px solid #3b82f6;
   border-radius: 50%;
   width: 24px;
@@ -162,11 +158,103 @@
 }
 
 .dark .spinner {
-  border-color: #374151;
+  border-color: rgba(96, 165, 250, 0.1);
   border-top-color: #60a5fa;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(59, 130, 246, 0.2);
+  color: inherit;
+}
+
+.dark ::selection {
+  background: rgba(96, 165, 250, 0.2);
+  color: inherit;
+}
+
+/* Focus styles for accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}
+
+.dark .focus-ring {
+  @apply focus:ring-blue-400;
+}
+
+/* Professional typography */
+.text-gradient {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* MailTester-inspired layout utilities */
+.container-mailtester {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-padding {
+  @apply py-12 md:py-16 lg:py-20;
+}
+
+/* Professional shadows */
+.shadow-professional {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-professional-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Glassmorphism effects for premium look */
+.glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 } 

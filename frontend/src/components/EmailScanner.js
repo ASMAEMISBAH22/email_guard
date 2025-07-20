@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Scan, Shield, AlertTriangle, CheckCircle, XCircle, Clock, Brain } from 'lucide-react';
+import { Scan, Shield, AlertTriangle, CheckCircle, XCircle, Clock, Brain, Mail } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import axios from 'axios';
 
@@ -68,268 +68,241 @@ const EmailScanner = ({ apiKey, onNewScan }) => {
       switch (riskLevel) {
         case 'high': return 'text-red-400 bg-red-900/20 border-red-700';
         case 'medium': return 'text-yellow-300 bg-yellow-900/20 border-yellow-700';
-        case 'low': return 'text-green-300 bg-green-900/20 border-green-700';
+        case 'low': return 'text-green-400 bg-green-900/20 border-green-700';
         default: return 'text-gray-400 bg-gray-800 border-gray-700';
       }
     } else {
       switch (riskLevel) {
-        case 'high': return 'text-red-600 bg-red-50 border-red-200';
-        case 'medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-        case 'low': return 'text-green-600 bg-green-50 border-green-200';
-        default: return 'text-gray-600 bg-gray-50 border-gray-200';
+        case 'high': return 'text-red-700 bg-red-50 border-red-200';
+        case 'medium': return 'text-yellow-700 bg-yellow-50 border-yellow-200';
+        case 'low': return 'text-green-700 bg-green-50 border-green-200';
+        default: return 'text-gray-700 bg-gray-50 border-gray-200';
       }
     }
   };
 
   const getClassificationIcon = (classification) => {
-    if (isDarkMode) {
-      switch (classification) {
-        case 'phishing': return <XCircle className="w-6 h-6 text-red-400" />;
-        case 'spam': return <AlertTriangle className="w-6 h-6 text-yellow-300" />;
-        case 'suspicious': return <AlertTriangle className="w-6 h-6 text-orange-400" />;
-        case 'legitimate': return <CheckCircle className="w-6 h-6 text-green-400" />;
-        default: return <Shield className="w-6 h-6 text-gray-500" />;
-      }
-    } else {
-      switch (classification) {
-        case 'phishing': return <XCircle className="w-6 h-6 text-red-500" />;
-        case 'spam': return <AlertTriangle className="w-6 h-6 text-yellow-500" />;
-        case 'suspicious': return <AlertTriangle className="w-6 h-6 text-orange-500" />;
-        case 'legitimate': return <CheckCircle className="w-6 h-6 text-green-500" />;
-        default: return <Shield className="w-6 h-6 text-gray-500" />;
-      }
+    switch (classification) {
+      case 'phishing': return <XCircle className="w-6 h-6 text-red-500" />;
+      case 'spam': return <AlertTriangle className="w-6 h-6 text-yellow-500" />;
+      case 'suspicious': return <AlertTriangle className="w-6 h-6 text-orange-500" />;
+      case 'legitimate': return <CheckCircle className="w-6 h-6 text-green-500" />;
+      default: return <Shield className="w-6 h-6 text-gray-500" />;
     }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Scanner Card */}
-      <div className={`card p-6 ${isDarkMode ? 'dark' : ''}`}>
-        <div className="flex items-center space-x-3 mb-6">
-          <div className={`flex items-center justify-center w-12 h-12 rounded-lg ${
-            isDarkMode ? 'bg-gray-700' : 'bg-primary-100'
-          }`}>
-            <Scan className={`w-6 h-6 ${isDarkMode ? 'text-blue-400' : 'text-primary-600'}`} />
-          </div>
-          <div>
-            <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-              Email Scanner
-            </h2>
-            <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Paste your email content below for AI-powered analysis
-            </p>
-          </div>
-        </div>
-
-        {/* Sample Emails */}
-        <div className="mb-4">
-          <label className={`block text-sm font-medium mb-2 ${
-            isDarkMode ? 'text-gray-200' : 'text-gray-700'
-          }`}>
-            Quick Test Samples:
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {sampleEmails.map((sample, index) => (
-              <button
-                key={index}
-                onClick={() => setEmailText(sample.text)}
-                className={`px-3 py-1 text-xs rounded-md transition-colors ${
-                  isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600 text-gray-200' 
-                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-                }`}
-              >
-                {sample.name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Email Input */}
-        <div className="mb-6">
-          <label htmlFor="email-text" className={`block text-sm font-medium mb-2 ${
-            isDarkMode ? 'text-gray-200' : 'text-gray-700'
-          }`}>
-            Email Content
-          </label>
-          <textarea
-            id="email-text"
-            value={emailText}
-            onChange={(e) => setEmailText(e.target.value)}
-            placeholder="Paste the email content here..."
-            className={`input-field h-40 ${isDarkMode ? 'dark' : ''}`}
-            disabled={isScanning}
-          />
-          <div className={`mt-2 text-sm ${
-            isDarkMode ? 'text-gray-400' : 'text-gray-500'
-          }`}>
-            {emailText.length}/50,000 characters
-          </div>
-        </div>
-
-        {/* Error Display */}
-        {error && (
-          <div className={`mb-4 p-4 rounded-lg ${
-            isDarkMode 
-              ? 'bg-red-900/40 border border-red-700' 
-              : 'bg-red-50 border border-red-200'
-          }`}>
-            <div className="flex items-center space-x-2">
-              <XCircle className="w-5 h-5 text-red-500" />
-              <span className={`font-medium ${
-                isDarkMode ? 'text-red-300' : 'text-red-700'
-              }`}>{error}</span>
-            </div>
-          </div>
-        )}
-
-        {/* Scan Button */}
-        <button
-          onClick={handleScan}
-          disabled={isScanning || !emailText.trim() || !apiKey}
-          className={`btn-primary w-full sm:w-auto ${isDarkMode ? 'dark' : ''}`}
-        >
-          {isScanning ? (
-            <div className="flex items-center space-x-2">
-              <div className="spinner"></div>
-              <span>Analyzing Email...</span>
-            </div>
-          ) : (
-            <div className="flex items-center space-x-2">
-              <Brain className="w-4 h-4" />
-              <span>Scan Email</span>
-            </div>
-          )}
-        </button>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-3xl font-bold mb-4">Email Security Scanner</h2>
+        <p className={`text-lg ${isDarkMode ? 'text-slate-400' : 'text-gray-600'}`}>
+          Analyze emails with AI-powered threat detection
+        </p>
       </div>
 
-      {/* Results Card */}
-      {scanResult && (
-        <div className={`card p-6 animate-in slide-in-from-bottom duration-500 ${isDarkMode ? 'dark' : ''}`}>
-          <div className="flex items-center space-x-3 mb-6">
-            <div className={`flex items-center justify-center w-12 h-12 rounded-lg ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
-            }`}>
-              {getClassificationIcon(scanResult.classification)}
-            </div>
-            <div>
-              <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                Scan Results
-              </h3>
-              <p className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                Analysis completed in {scanResult.processing_time_ms}ms
-              </p>
-            </div>
-          </div>
+      {/* Main Scanner */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Input Section */}
+        <div className="lg:col-span-2">
+          <div className={`rounded-xl border p-6 transition-colors duration-200 ${
+            isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'
+          }`}>
+            <h3 className="text-xl font-semibold mb-4">Email Analysis</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* Classification */}
-            <div className="space-y-3">
-              <div>
-                <label className={`text-sm font-medium ${
-                  isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                }`}>Classification</label>
-                <div className={`mt-1 px-3 py-2 rounded-lg border font-medium text-center ${getRiskColor(scanResult.risk_level)}`}>
+            {/* Sample Emails */}
+            <div className="mb-6">
+              <label className={`block text-sm font-medium mb-3 ${
+                isDarkMode ? 'text-slate-300' : 'text-gray-700'
+              }`}>
+                Quick Test Samples:
+              </label>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {sampleEmails.map((sample, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setEmailText(sample.text)}
+                    className={`p-3 text-left rounded-lg border transition-colors duration-200 ${
+                      isDarkMode 
+                        ? 'bg-slate-700 border-slate-600 hover:border-slate-500' 
+                        : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="font-medium text-sm mb-1">{sample.name}</div>
+                    <p className={`text-xs ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                      {sample.text.substring(0, 60)}...
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Email Input */}
+            <div className="mb-6">
+              <label htmlFor="email-text" className={`block text-sm font-medium mb-2 ${
+                isDarkMode ? 'text-slate-300' : 'text-gray-700'
+              }`}>
+                Email Content
+              </label>
+              <textarea
+                id="email-text"
+                value={emailText}
+                onChange={(e) => setEmailText(e.target.value)}
+                placeholder="Paste your email content here..."
+                className={`w-full px-4 py-3 border rounded-lg h-48 resize-none transition-colors duration-200 ${
+                  isDarkMode 
+                    ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-400' 
+                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
+                disabled={isScanning}
+              />
+              <div className={`mt-2 text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                {emailText.length}/50,000 characters
+              </div>
+            </div>
+
+            {/* Error Display */}
+            {error && (
+              <div className={`mb-6 p-4 rounded-lg border-l-4 border-red-500 ${
+                isDarkMode 
+                  ? 'bg-red-900/20 border border-red-800' 
+                  : 'bg-red-50 border border-red-200'
+              }`}>
+                <div className="flex items-center space-x-2">
+                  <AlertTriangle className="w-5 h-5 text-red-500" />
+                  <span className={`font-medium ${
+                    isDarkMode ? 'text-red-300' : 'text-red-700'
+                  }`}>{error}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Scan Button */}
+            <button
+              onClick={handleScan}
+              disabled={isScanning || !emailText.trim() || !apiKey}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+            >
+              {isScanning ? (
+                <>
+                  <div className="spinner"></div>
+                  <span>Analyzing...</span>
+                </>
+              ) : (
+                <>
+                  <Scan className="w-5 h-5" />
+                  <span>Analyze Email</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Results Section */}
+        <div>
+          {scanResult ? (
+            <div className={`rounded-xl border p-6 transition-colors duration-200 ${
+              isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'
+            }`}>
+              <div className="text-center mb-6">
+                <div className="flex justify-center mb-4">
+                  <div className={`p-3 rounded-full ${
+                    scanResult.risk_level === 'high' 
+                      ? 'bg-red-100 text-red-600' 
+                      : scanResult.risk_level === 'medium'
+                        ? 'bg-yellow-100 text-yellow-600'
+                        : 'bg-green-100 text-green-600'
+                  }`}>
+                    {getClassificationIcon(scanResult.classification)}
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Scan Results</h3>
+                <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getRiskColor(scanResult.risk_level)}`}>
                   {scanResult.classification.toUpperCase()}
                 </div>
               </div>
 
-              <div>
-                <label className={`text-sm font-medium ${
-                  isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                }`}>Confidence Score</label>
-                <div className={`mt-1 rounded-lg h-6 relative ${
-                  isDarkMode ? 'bg-gray-700' : 'bg-gray-200'
+              {/* Confidence Score */}
+              <div className="mb-6">
+                <div className={`flex justify-between text-sm mb-2 ${
+                  isDarkMode ? 'text-slate-300' : 'text-gray-600'
                 }`}>
-                  <div 
-                    className={`h-full rounded-lg transition-all duration-1000 ${
+                  <span>Confidence</span>
+                  <span>{(scanResult.confidence * 100).toFixed(1)}%</span>
+                </div>
+                <div className={`w-full h-3 rounded-full ${
+                  isDarkMode ? 'bg-slate-700' : 'bg-gray-200'
+                }`}>
+                  <div
+                    className={`h-full rounded-full transition-all duration-1000 ${
                       scanResult.confidence >= 0.7 ? 'bg-red-500' : 
                       scanResult.confidence >= 0.4 ? 'bg-yellow-500' : 'bg-green-500'
                     }`}
                     style={{ width: `${Math.max(scanResult.confidence * 100, 5)}%` }}
                   ></div>
-                  <span className={`absolute inset-0 flex items-center justify-center text-sm font-medium ${
-                    isDarkMode ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    {(scanResult.confidence * 100).toFixed(1)}%
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Risk Level & Timing */}
-            <div className="space-y-3">
-              <div>
-                <label className={`text-sm font-medium ${
-                  isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                }`}>Risk Level</label>
-                <div className={`mt-1 px-3 py-2 rounded-lg border font-medium text-center ${getRiskColor(scanResult.risk_level)}`}>
-                  {scanResult.risk_level.toUpperCase()}
                 </div>
               </div>
 
-              <div>
+              {/* Analysis */}
+              <div className="mb-4">
                 <label className={`text-sm font-medium ${
-                  isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                }`}>Processing Time</label>
-                <div className={`mt-1 flex items-center space-x-2 px-3 py-2 rounded-lg ${
-                  isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+                  isDarkMode ? 'text-slate-300' : 'text-gray-600'
+                }`}>Analysis</label>
+                <p className={`mt-1 text-sm ${
+                  isDarkMode ? 'text-slate-200' : 'text-gray-800'
                 }`}>
-                  <Clock className="w-4 h-4 text-gray-500" />
-                  <span className={`font-medium ${
-                    isDarkMode ? 'text-gray-200' : 'text-gray-900'
-                  }`}>{scanResult.processing_time_ms}ms</span>
+                  {scanResult.explanation}
+                </p>
+              </div>
+
+              {/* Suspicious Patterns */}
+              {scanResult.suspicious_patterns && scanResult.suspicious_patterns.length > 0 && (
+                <div className="mb-4">
+                  <label className={`text-sm font-medium ${
+                    isDarkMode ? 'text-slate-300' : 'text-gray-600'
+                  }`}>Suspicious Patterns</label>
+                  <div className="mt-2 space-y-1">
+                    {scanResult.suspicious_patterns.slice(0, 2).map((pattern, index) => (
+                      <div key={index} className={`px-3 py-2 rounded-lg text-sm ${
+                        isDarkMode 
+                          ? 'bg-yellow-900/20 text-yellow-300' 
+                          : 'bg-yellow-50 text-yellow-800'
+                      }`}>
+                        {pattern}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Metadata */}
+              <div className={`pt-4 border-t text-xs ${
+                isDarkMode ? 'border-slate-700 text-slate-400' : 'border-gray-200 text-gray-500'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span>ID: {scanResult.scan_id}</span>
+                  <div className="flex items-center space-x-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{scanResult.processing_time_ms}ms</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Explanation */}
-          <div className="mb-4">
-            <label className={`text-sm font-medium ${
-              isDarkMode ? 'text-gray-200' : 'text-gray-700'
-            }`}>Analysis Explanation</label>
-            <div className={`mt-1 p-3 rounded-lg ${
-              isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+          ) : (
+            <div className={`rounded-xl border p-6 text-center transition-colors duration-200 ${
+              isDarkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'
             }`}>
-              <p className={isDarkMode ? 'text-gray-200' : 'text-gray-800'}>
-                {scanResult.explanation}
+              <Mail className={`w-12 h-12 mx-auto mb-4 ${isDarkMode ? 'text-slate-600' : 'text-gray-400'}`} />
+              <h3 className={`text-lg font-medium mb-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
+                Ready to Scan
+              </h3>
+              <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-gray-500'}`}>
+                Enter email content to get started
               </p>
             </div>
-          </div>
-
-          {/* Suspicious Patterns */}
-          {scanResult.suspicious_patterns && scanResult.suspicious_patterns.length > 0 && (
-            <div>
-              <label className={`text-sm font-medium ${
-                isDarkMode ? 'text-gray-200' : 'text-gray-700'
-              }`}>Suspicious Patterns Detected</label>
-              <div className="mt-1 space-y-1">
-                {scanResult.suspicious_patterns.map((pattern, index) => (
-                  <div key={index} className={`px-3 py-2 rounded text-sm ${
-                    isDarkMode 
-                      ? 'bg-yellow-900/40 border border-yellow-700 text-yellow-200'
-                      : 'bg-yellow-50 border border-yellow-200 text-yellow-800'
-                  }`}>
-                    {pattern}
-                  </div>
-                ))}
-              </div>
-            </div>
           )}
-
-          {/* Scan ID */}
-          <div className={`mt-4 pt-4 border-t ${
-            isDarkMode ? 'border-gray-700' : 'border-gray-200'
-          }`}>
-            <div className={`text-xs ${
-              isDarkMode ? 'text-gray-400' : 'text-gray-500'
-            }`}>
-              Scan ID: {scanResult.scan_id} • {new Date(scanResult.timestamp).toLocaleString()}
-            </div>
-          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

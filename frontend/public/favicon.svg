@@ -1,1 +1,55 @@
- 
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1d4ed8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="checkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Shield background -->
+  <path d="M32 58s14-6 14-18V16L32 8 18 16v24c0 12 14 18 14 18z" 
+        fill="url(#shieldGradient)" 
+        filter="url(#shadow)"
+        stroke="#1e3a8a" 
+        stroke-width="1"/>
+  
+  <!-- Email icon -->
+  <rect x="20" y="24" width="24" height="16" rx="2" 
+        fill="#ffffff" 
+        fill-opacity="0.9" 
+        stroke="#e5e7eb" 
+        stroke-width="1"/>
+  
+  <!-- Email fold lines -->
+  <path d="M20 26 L32 32 L44 26" 
+        stroke="#6b7280" 
+        stroke-width="1.5" 
+        fill="none"/>
+  
+  <!-- Check mark -->
+  <path d="M25 34 L29 38 L39 28" 
+        stroke="url(#checkGradient)" 
+        stroke-width="3" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        fill="none"/>
+  
+  <!-- AI spark elements -->
+  <circle cx="48" cy="20" r="2" fill="#fbbf24" opacity="0.8">
+    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="16" cy="48" r="1.5" fill="#f59e0b" opacity="0.6">
+    <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="52" cy="44" r="1" fill="#fbbf24" opacity="0.7">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite"/>
+  </circle>
+</svg> 
