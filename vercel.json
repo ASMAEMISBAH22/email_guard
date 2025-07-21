@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "backend/app.py",
-      "use": "@vercel/python"
+  "functions": {
+    "backend/app.py": {
+      "runtime": "python3.11",
+      "maxDuration": 30
     }
-  ],
+  },
   "routes": [
     {
       "src": "/health",
@@ -27,13 +27,5 @@
       "src": "/(.*)",
       "dest": "backend/app.py"
     }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.11"
-  },
-  "functions": {
-    "backend/app.py": {
-      "maxDuration": 30
-    }
-  }
+  ]
 } 
