@@ -1,6 +1,6 @@
 {
   "functions": {
-    "backend/app.py": {
+    "api/app.py": {
       "runtime": "@vercel/python@2.0.0"
     }
   }
