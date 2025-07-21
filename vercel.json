@@ -1,28 +1,12 @@
 {
   "version": 2,
-  "functions": {
-    "backend/app.py": {
-      "runtime": "python3.11",
-      "maxDuration": 30
+  "builds": [
+    {
+      "src": "backend/app.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
   "routes": [
-    {
-      "src": "/health",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/scan",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/history",
-      "dest": "backend/app.py"
-    },
-    {
-      "src": "/create-key",
-      "dest": "backend/app.py"
-    },
     {
       "src": "/(.*)",
       "dest": "backend/app.py"
