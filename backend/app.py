@@ -263,7 +263,9 @@ app.add_middleware(
         "https://*.repl.co",  # Allow all Replit subdomains
         "https://*.replit.dev",  # Allow all Replit dev domains
         "https://*.railway.app",  # Allow all Railway subdomains
-        "https://*.up.railway.app"  # Allow Railway preview deployments
+        "https://*.up.railway.app",  # Allow Railway preview deployments
+        "https://*.vercel.app",  # Allow all Vercel subdomains
+        "https://*.vercel.app"  # Allow Vercel preview deployments
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST"],
