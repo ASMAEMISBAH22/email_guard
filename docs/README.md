@@ -351,7 +351,28 @@ cd frontend && npm start
 
 ### Production Deployment
 
-#### Option 1: Traditional Server
+#### Vercel Deployment (Recommended)
+The project is optimized for deployment on Vercel's serverless platform:
+
+```bash
+# Deploy to Vercel (Free Tier - No Credit Card Required)
+# 1. Go to vercel.com and sign up with GitHub
+# 2. Import your repository: ASMAEMISBAH22/email_guard
+# 3. Vercel will automatically detect and deploy your FastAPI backend
+# 4. Your API will be live at: https://your-project-name.vercel.app
+```
+
+**Vercel Free Tier Benefits:**
+- ✅ **100GB-hours/month** serverless functions
+- ✅ **100GB/month** bandwidth
+- ✅ **Unlimited custom domains** with free SSL
+- ✅ **Automatic deployments** from GitHub
+- ✅ **Global CDN** for fast worldwide access
+- ✅ **No credit card required**
+
+See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed deployment instructions.
+
+#### Traditional Server (Alternative)
 ```bash
 # Backend with Gunicorn
 cd backend
@@ -361,15 +382,6 @@ gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 cd frontend
 npm run build
 # Serve build/ with nginx or Apache
-```
-
-#### Option 2: Cloud Platform (Railway, Render, etc.)
-See deployment guides in the `docs/deployment/` directory for platform-specific instructions.
-
-#### Option 3: Docker (Bonus)
-```bash
-# Build and run with Docker Compose
-docker-compose up --build
 ```
 
 ## 🎓 Learning Resources

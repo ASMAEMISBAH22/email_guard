@@ -258,12 +258,6 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000", 
         "http://127.0.0.1:3000",
-        "https://email-guardian-frontend.onrender.com",  # Render frontend URL
-        "https://*.onrender.com",  # Allow all Render subdomains
-        "https://*.repl.co",  # Allow all Replit subdomains
-        "https://*.replit.dev",  # Allow all Replit dev domains
-        "https://*.railway.app",  # Allow all Railway subdomains
-        "https://*.up.railway.app",  # Allow Railway preview deployments
         "https://*.vercel.app",  # Allow all Vercel subdomains
         "https://*.vercel.app"  # Allow Vercel preview deployments
     ],
