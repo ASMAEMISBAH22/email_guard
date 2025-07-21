@@ -255,7 +255,12 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # React dev server
+    allow_origins=[
+        "http://localhost:3000", 
+        "http://127.0.0.1:3000",
+        "https://email-guardian-frontend.onrender.com",  # Render frontend URL
+        "https://*.onrender.com"  # Allow all Render subdomains
+    ],
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -488,10 +493,11 @@ if __name__ == "__main__":
         print("Note: Development key may already exist")
     
     print("🚀 Starting Email Guardian API server...")
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "app:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True,
+        port=port,
+        reload=False,  # Disable reload in production
         log_level="info"
     ) 
