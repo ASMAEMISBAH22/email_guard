@@ -1,0 +1,84 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: email-guardian-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - TRANSFORMERS_CACHE=/app/ai/models
+      - HF_HOME=/app/ai/models
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+    volumes:
+      - ./backend:/app/backend
+      - ./ai:/app/ai
+      - model_cache:/app/ai/models
+      - db_data:/app/backend
+    networks:
+      - email-guardian-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend Web Service
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: email-guardian-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - email-guardian-network
+    restart: unless-stopped
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Development Frontend (Hot Reload)
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: email-guardian-frontend-dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - email-guardian-network
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - CHOKIDAR_USEPOLLING=true
+    profiles:
+      - dev
+
+volumes:
+  model_cache:
+    driver: local
+  db_data:
+    driver: local
+
+networks:
+  email-guardian-network:
+    driver: bridge 

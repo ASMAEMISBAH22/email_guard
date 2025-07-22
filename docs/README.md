@@ -339,20 +339,33 @@ This project is designed as an educational tool for cybersecurity students, cove
 
 ## 🚀 Deployment Options
 
-### Local Development
-```bash
-# Backend only
-cd backend && python app.py
+### 🐳 Docker Deployment (Recommended)
+The project is fully containerized for easy deployment:
 
-# Full stack
-cd backend && python app.py &
-cd frontend && npm start
+```bash
+# Quick start with Docker
+git clone https://github.com/ASMAEMISBAH22/email_guard.git
+cd email_guard
+docker-compose up --build
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+# API Docs: http://localhost:8000/docs
 ```
 
-### Production Deployment
+**Docker Benefits:**
+- ✅ **One-command deployment** - No complex setup required
+- ✅ **Consistent environment** - Works the same everywhere
+- ✅ **Full-stack solution** - Backend + Frontend + AI models
+- ✅ **Production ready** - Optimized for performance
+- ✅ **Easy scaling** - Simple horizontal scaling
+- ✅ **Development mode** - Hot reload for development
 
-#### Vercel Deployment (Recommended)
-The project is optimized for deployment on Vercel's serverless platform:
+See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed Docker instructions.
+
+### ☁️ Vercel Deployment (Serverless)
+For serverless deployment on Vercel:
 
 ```bash
 # Deploy to Vercel (Free Tier - No Credit Card Required)
@@ -372,7 +385,17 @@ The project is optimized for deployment on Vercel's serverless platform:
 
 See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed deployment instructions.
 
-#### Traditional Server (Alternative)
+### 🖥️ Local Development
+```bash
+# Backend only
+cd backend && python app.py
+
+# Full stack
+cd backend && python app.py &
+cd frontend && npm start
+```
+
+### 🏗️ Traditional Server (Alternative)
 ```bash
 # Backend with Gunicorn
 cd backend
