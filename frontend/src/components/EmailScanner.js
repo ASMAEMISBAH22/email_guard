@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Scan, Shield, AlertTriangle, CheckCircle, XCircle, Clock, Brain, Mail } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
-import axios from 'axios';
+import { emailAPI } from '../services/api';
 
 const EmailScanner = ({ apiKey, onNewScan }) => {
   const [emailText, setEmailText] = useState('');
@@ -38,14 +38,9 @@ const EmailScanner = ({ apiKey, onNewScan }) => {
     setError('');
     setScanResult(null);
     try {
-      const response = await axios.post('/scan', {
+      const response = await emailAPI.scanEmail({
         email_text: emailText,
         user_id: 'web-user'
-      }, {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        }
       });
       const result = response.data;
       setScanResult(result);

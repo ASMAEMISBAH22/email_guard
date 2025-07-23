@@ -56,7 +56,7 @@ Smart Email Guardian is a lightweight, AI-enhanced security tool designed for cy
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/email_guard.git
+git clone https://github.com/ASMAEMISBAH22/email_guard.git
 cd email_guard
 ```
 
@@ -337,74 +337,66 @@ This project is designed as an educational tool for cybersecurity students, cove
 - **Demonstration**: Live demo of AI-powered security tools
 - **Assessment**: Practical evaluation of cybersecurity concepts
 
-## 🚀 Deployment Options
+## 🌐 Deployment Options
 
-### 🐳 Docker Deployment (Recommended)
-The project is fully containerized for easy deployment:
+### Option 1: Vercel + Replit (Recommended)
+
+Deploy the frontend on Vercel and backend on Replit for a cost-effective, scalable solution.
+
+**Frontend (Vercel):**
+- Fast global CDN
+- Automatic deployments
+- Free tier with generous limits
+
+**Backend (Replit):**
+- Easy Python deployment
+- No credit card required
+- Good for CPU-intensive AI workloads
+
+**Quick Setup:**
+```bash
+# Run the deployment setup script
+chmod +x deploy-setup.sh
+./deploy-setup.sh
+```
+
+**Manual Setup:**
+1. **Backend on Replit:**
+   - Import from GitHub: `https://github.com/ASMAEMISBAH22/email_guard`
+   - Navigate to `backend` folder
+   - Click "Run"
+
+2. **Frontend on Vercel:**
+   - Import from GitHub: `ASMAEMISBAH22/email_guard`
+   - Set root directory: `frontend`
+   - Add environment variable: `REACT_APP_API_URL` = your Replit URL
+
+See [VERCEL_REPLIT_DEPLOYMENT.md](VERCEL_REPLIT_DEPLOYMENT.md) for detailed instructions.
+
+### Option 2: Docker Deployment
+
+Deploy the entire stack using Docker containers.
 
 ```bash
-# Quick start with Docker
-git clone https://github.com/ASMAEMISBAH22/email_guard.git
-cd email_guard
+# Build and run with Docker Compose
 docker-compose up --build
-
-# Access the application
-# Frontend: http://localhost:3000
-# Backend API: http://localhost:8000
-# API Docs: http://localhost:8000/docs
 ```
 
-**Docker Benefits:**
-- ✅ **One-command deployment** - No complex setup required
-- ✅ **Consistent environment** - Works the same everywhere
-- ✅ **Full-stack solution** - Backend + Frontend + AI models
-- ✅ **Production ready** - Optimized for performance
-- ✅ **Easy scaling** - Simple horizontal scaling
-- ✅ **Development mode** - Hot reload for development
+See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed instructions.
 
-See [DOCKER_DEPLOYMENT.md](DOCKER_DEPLOYMENT.md) for detailed Docker instructions.
+### Option 3: Local Development
 
-### ☁️ Vercel Deployment (Serverless)
-For serverless deployment on Vercel:
+Run everything locally for development and testing.
 
 ```bash
-# Deploy to Vercel (Free Tier - No Credit Card Required)
-# 1. Go to vercel.com and sign up with GitHub
-# 2. Import your repository: ASMAEMISBAH22/email_guard
-# 3. Vercel will automatically detect and deploy your FastAPI backend
-# 4. Your API will be live at: https://your-project-name.vercel.app
-```
-
-**Vercel Free Tier Benefits:**
-- ✅ **100GB-hours/month** serverless functions
-- ✅ **100GB/month** bandwidth
-- ✅ **Unlimited custom domains** with free SSL
-- ✅ **Automatic deployments** from GitHub
-- ✅ **Global CDN** for fast worldwide access
-- ✅ **No credit card required**
-
-See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed deployment instructions.
-
-### 🖥️ Local Development
-```bash
-# Backend only
+# Backend
 cd backend && python app.py
 
-# Full stack
-cd backend && python app.py &
+# Frontend (in new terminal)
 cd frontend && npm start
-```
 
-### 🏗️ Traditional Server (Alternative)
-```bash
-# Backend with Gunicorn
-cd backend
-gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-
-# Frontend build
-cd frontend
-npm run build
-# Serve build/ with nginx or Apache
+# CLI Tool
+cd ai && python email_guard.py --text "test email"
 ```
 
 ## 🎓 Learning Resources

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Key, Plus, Eye, EyeOff, Copy, CheckCircle, XCircle } from 'lucide-react';
+import { Key, Plus, Eye, EyeOff, Copy, CheckCircle, XCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
-import axios from 'axios';
+import { emailAPI } from '../services/api';
 
 const ApiKeyManager = ({ currentApiKey, onApiKeySet }) => {
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -25,10 +25,7 @@ const ApiKeyManager = ({ currentApiKey, onApiKeySet }) => {
     setSuccess('');
 
     try {
-      const response = await axios.post('/create-key', {
-        name: keyName.trim(),
-        description: keyDescription.trim() || undefined
-      });
+      const response = await emailAPI.createApiKey(keyName.trim(), keyDescription.trim() || undefined);
 
       setNewApiKey(response.data.api_key);
       setSuccess('API key created successfully!');

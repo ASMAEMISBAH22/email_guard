@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { History, RefreshCw, Filter, AlertTriangle, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { History, Clock, Shield, AlertTriangle, CheckCircle, XCircle, RefreshCw, Trash2 } from 'lucide-react';
+import { emailAPI } from '../services/api';
 import { useTheme } from '../contexts/ThemeContext';
-import axios from 'axios';
 
 const ScanHistory = ({ apiKey, localHistory }) => {
   const [serverHistory, setServerHistory] = useState([]);
@@ -24,11 +24,7 @@ const ScanHistory = ({ apiKey, localHistory }) => {
     setError('');
 
     try {
-      const response = await axios.get('/history?limit=50', {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`
-        }
-      });
+      const response = await emailAPI.getHistory({ limit: 50 });
       setServerHistory(response.data.history || []);
     } catch (err) {
       console.error('History fetch error:', err);
@@ -225,7 +221,7 @@ const ScanHistory = ({ apiKey, localHistory }) => {
         {/* Filters */}
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center space-x-2">
-            <Filter className={`w-4 h-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} />
+            <Shield className={`w-4 h-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`} />
             <label className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
               Filter:
             </label>
