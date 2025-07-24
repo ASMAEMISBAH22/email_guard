@@ -9,6 +9,6 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "@react_app_api_url"
+    "REACT_APP_API_URL": "https://05d64819-55b5-413a-a230-392814dd1908-00-3a3sjoj9agigo.spock.replit.dev"
   }
 } 

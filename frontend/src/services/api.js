@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Get the API base URL from environment variable, fallback to localhost for development
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+// Get the API base URL from environment variable, fallback to Replit backend for production
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://05d64819-55b5-413a-a230-392814dd1908-00-3a3sjoj9agigo.spock.replit.dev';
 
 // Create axios instance with base configuration
 const api = axios.create({
